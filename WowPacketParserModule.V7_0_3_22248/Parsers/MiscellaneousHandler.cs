@@ -333,5 +333,12 @@ namespace WowPacketParserModule.V7_0_3_22248.Parsers
             packet.ReadPackedGuid128("GUID"); // Creature or GameObject
             packet.ReadInt32("RaceID");
         }
+
+        [Parser(Opcode.CMSG_CONVERSATION_LINE_STARTED)]
+        public static void HandleConversationLineStarted(Packet packet)
+        {
+            packet.ReadPackedGuid128("ConversationGUID");
+            packet.ReadInt32("Unk");
+        }
     }
 }
