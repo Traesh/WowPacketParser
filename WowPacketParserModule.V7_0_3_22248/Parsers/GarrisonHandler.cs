@@ -192,5 +192,18 @@ namespace WowPacketParserModule.V7_0_3_22248.Parsers
                         ReadGarrisonFollower(packet, "Follower", i, j);
             }
         }
+
+        [Parser(Opcode.CMSG_OPEN_MISSION_NPC)]
+        public static void HandleOpenMissionNPC(Packet packet)
+        {
+            packet.ReadPackedGuid128("NpcGUID");
+            packet.ReadInt32("GarrTypeID");
+        }
+
+        [Parser(Opcode.CMSG_ADVENTURE_JOURNAL_START_QUEST)]
+        public static void HandleAdventurejournalStartQuest(Packet packet)
+        {
+            packet.ReadInt32("QuestID");
+        }
     }
 }
