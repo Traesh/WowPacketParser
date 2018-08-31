@@ -103,9 +103,9 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if (hasSpellEffectExtraData)
                 ReadMonsterSplineSpellEffectExtraData(packet, "MonsterSplineSpellEffectExtra");
 
-            if (unk801)
+            if (unk801) // non spell knockback/jump related
             {
-                packet.ReadSingle("Unk801_Float_1");
+                packet.ReadSingle("Gravity");
                 packet.ReadInt32("Unk801_Int32_1");
                 packet.ReadInt32("Unk801_Int32_2");
             }
