@@ -155,7 +155,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             packet.ReadInt16("PlayerLevelDelta", idx);
             packet.ReadUInt16("PlayerItemLevel", idx);
-            packet.ReadUInt16("Unk801", idx); // might be curve or another relevant active aura spellid, not enough data to compare against atm 
+            packet.ReadUInt16("HealthItemLevelCurveId", idx);
             packet.ReadByte("TargetLevel", idx);
             packet.ReadByte("Expansion", idx);
             packet.ReadByte("TargetMinScalingLevel", idx);
