@@ -382,8 +382,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             Storage.QuestTemplates.Add(quest, packet.TimeSpan);
         }
 
-        [Parser(Opcode.SMSG_QUERY_QUEST_REWARD_RESPONSE)]
-        public static void HandleQueryQuestRewardResponse(Packet packet)
+        [Parser(Opcode.SMSG_QUERY_TREASURE_PICKER_RESPONSE)]
+        public static void HandleQueryTreaurePickerResponse(Packet packet)
         {
             packet.ReadInt32("QuestId");
             packet.ReadInt32("QuestRewardId");
