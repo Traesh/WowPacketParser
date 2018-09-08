@@ -320,7 +320,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     QuestVisualEffect questVisualEffect = new QuestVisualEffect
                     {
                         ID = questInfoObjective.ID,
-                        Index = j,
+                        Index = (uint)j,
                         VisualEffect = packet.ReadInt32("VisualEffectId", i, j)
                     };
 
@@ -444,9 +444,9 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             {
                 int questId = packet.ReadInt32("QuestID", i);
 
-                int questPOIBlobData = packet.ReadUInt32("QuestPOIBlobData", i);
+                var questPOIBlobData = packet.ReadUInt32("QuestPOIBlobData", i);
 
-                for (int j = 0; j < questPOIBlobData; ++j)
+                for (var j = 0; j < questPOIBlobData; ++j)
                 {
                     QuestPOI questPoi = new QuestPOI
                     {
