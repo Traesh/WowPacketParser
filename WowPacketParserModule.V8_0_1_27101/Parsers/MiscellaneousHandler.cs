@@ -22,7 +22,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadUInt32("TwitterPostThrottleCooldown");
             packet.ReadUInt32("TokenPollTimeSeconds");
             packet.ReadUInt32E<ConsumableTokenRedeem>("TokenRedeemIndex");
-            packet.ReadUInt64("TokenBalanceAmount");
+            packet.ReadInt64("TokenBalanceAmount");
             packet.ReadUInt32("BpayStoreProductDeliveryDelay");
             packet.ReadUInt32("UnkInt32");
 
@@ -88,15 +88,15 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             if (hasRaceClassExpansionLevels)
             {
-                var int88 = packet.ReadInt32("RaceClassExpansionLevelsCount");
+                var int88 = packet.ReadUInt32("RaceClassExpansionLevelsCount");
                 for (int i = 0; i < int88; i++)
                     packet.ReadByte("RaceClassExpansionLevels", i);
             }
             packet.ResetBitReader();
 
-            packet.ReadByte("UnkByte");
-            packet.ReadPackedGuid128("UnkGUID");
-            packet.ReadPackedGuid128("UnkGUID2");
+            packet.ReadByte("Unk801_Byte");
+            packet.ReadPackedGuid128("Unk801_GUID");
+            packet.ReadPackedGuid128("Unk801_GUID2");
 
             if (hasEuropaTicketSystemStatus)
                 V6_0_2_19033.Parsers.MiscellaneousHandler.ReadCliEuropaTicketConfig(packet, "EuropaTicketSystemStatus");
@@ -122,16 +122,16 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadBit("LiveRegionCharacterCopyEnabled");
             packet.ReadBit("LiveRegionAccountCopyEnabled");
 
-            packet.ReadInt32("TokenPollTimeSeconds");
-            packet.ReadInt32E<ConsumableTokenRedeem>("TokenRedeemIndex");
+            packet.ReadUInt32("TokenPollTimeSeconds");
+            packet.ReadUInt32E<ConsumableTokenRedeem>("TokenRedeemIndex");
             packet.ReadInt64("TokenBalanceAmount");
-            packet.ReadUInt32("BpayStoreProductDeliveryDelay");
+            packet.ReadInt32("BpayStoreProductDeliveryDelay");
 
-            packet.ReadInt32("Unk801_1"); // HasPurchaseInProgress related
-            packet.ReadUInt32("ActiveCharacterUpgradeBoostType");
-            packet.ReadUInt32("ActiveClassTrialBoostType");
-            packet.ReadUInt32("NumExpansions");
-            packet.ReadUInt32("MaximumExpansionLevel");
+            packet.ReadUInt32("Unk801_1"); // HasPurchaseInProgress related
+            packet.ReadInt32("ActiveCharacterUpgradeBoostType");
+            packet.ReadInt32("ActiveClassTrialBoostType");
+            packet.ReadInt32("NumExpansions");
+            packet.ReadInt32("MaximumExpansionLevel");
         }
 
         [Parser(Opcode.SMSG_LIGHTNING_STORM_START)]

@@ -14,7 +14,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             var text = new CreatureText
             {
                 Type = (ChatMessageType)packet.ReadByteE<ChatMessageTypeNew>("SlashCmd"),
-                Language = packet.ReadInt32E<Language>("Language"),
+                Language = packet.ReadUInt32E<Language>("Language"),
                 SenderGUID = packet.ReadPackedGuid128("SenderGUID")
             };
 
@@ -24,7 +24,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadUInt32("TargetVirtualAddress");
             packet.ReadUInt32("SenderVirtualAddress");
             packet.ReadPackedGuid128("PartyGUID");
-            packet.ReadUInt32("AchievementID");
+            packet.ReadInt32("AchievementID");
             packet.ReadSingle("DisplayTime");
 
             var senderNameLen = packet.ReadBits(11);
@@ -45,7 +45,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             text.Text = packet.ReadWoWString("Text", textLen);
             if (unk801bit)
-                packet.ReadInt32("Unk801_Int32");
+                packet.ReadUInt32("Unk801");
 
             uint entry = 0;
             if (text.SenderGUID.GetObjectType() == ObjectType.Unit)
