@@ -64,8 +64,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 packet.ReadByte("CustomDisplay", idx, j);
 
             packet.ReadByte("ExperienceLevel", idx);
-            var zone = packet.ReadUInt32<ZoneId>("ZoneID", idx);
-            var mapId = packet.ReadUInt32<MapId>("MapID", idx);
+            var zone = packet.ReadInt32<ZoneId>("ZoneID", idx);
+            var mapId = packet.ReadInt32<MapId>("MapID", idx);
 
             var pos = packet.ReadVector3("PreloadPos", idx);
 
@@ -79,7 +79,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadUInt32("PetCreatureFamilyID", idx);
 
             for (uint j = 0; j < 2; ++j)
-                packet.ReadUInt32("ProfessionIDs", idx, j);
+                packet.ReadInt32("ProfessionIDs", idx, j);
 
             for (uint j = 0; j < 23; ++j)
             {
@@ -90,9 +90,9 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             packet.ReadTime("LastPlayedTime", idx);
 
-            packet.ReadUInt16("SpecID", idx);
-            packet.ReadUInt32("Unknown703", idx);
-            packet.ReadUInt32("LastLoginBuild", idx);
+            packet.ReadInt16("SpecID", idx);
+            packet.ReadInt32("Unknown703", idx);
+            packet.ReadInt32("LastLoginBuild", idx);
             packet.ReadUInt32("Flags4", idx);
 
             packet.ResetBitReader();
@@ -142,22 +142,22 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         {
             packet.ReadPackedGuid128("InspecteeGUID");
 
-            var int48 = packet.ReadInt32("ItemsCount");
-            var int80 = packet.ReadInt32("GlyphsCount");
-            var int112 = packet.ReadInt32("TalentsCount");
-            var int144 = packet.ReadInt32("PvpTalentsCount");
-            packet.ReadUInt32E<Class>("ClassID");
-            packet.ReadUInt32("SpecializationID");
-            packet.ReadUInt32E<Gender>("Gender");
+            var int48 = packet.ReadUInt32("ItemsCount");
+            var int80 = packet.ReadUInt32("GlyphsCount");
+            var int112 = packet.ReadUInt32("TalentsCount");
+            var int144 = packet.ReadUInt32("PvpTalentsCount");
+            packet.ReadInt32E<Class>("ClassID");
+            packet.ReadInt32("SpecializationID");
+            packet.ReadInt32E<Gender>("Gender");
 
             for (int i = 0; i < int80; i++)
-                packet.ReadInt16("Glyphs", i);
+                packet.ReadUInt16("Glyphs", i);
 
             for (int i = 0; i < int112; i++)
-                packet.ReadInt16("Talents", i);
+                packet.ReadUInt16("Talents", i);
 
             for (int i = 0; i < int144; i++)
-                packet.ReadInt16("PvpTalents", i);
+                packet.ReadUInt16("PvpTalents", i);
 
             packet.ResetBitReader();
             var hasGuildData = packet.ReadBit("HasGuildData");
@@ -168,10 +168,10 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 packet.ReadPackedGuid128("CreatorGUID", i);
                 packet.ReadByte("Index", i);
 
-                var azeritePowerCount = packet.ReadInt32("AzeritePowersCount", i);
+                var azeritePowerCount = packet.ReadUInt32("AzeritePowersCount", i);
                 
                 for (int j = 0; j < azeritePowerCount; j++)
-                    packet.ReadUInt32("AzeritePowerId", i, j);
+                    packet.ReadInt32("AzeritePowerId", i, j);
 
                 V6_0_2_19033.Parsers.ItemHandler.ReadItemInstance(packet, i);
 
@@ -188,7 +188,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
                 for (int j = 0; j < enchantsCount; j++)
                 {
-                    packet.ReadInt32("Id", i, j);
+                    packet.ReadUInt32("Id", i, j);
                     packet.ReadByte("Index", i, j);
                 }
             }
@@ -196,11 +196,11 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if (hasGuildData)
             {
                 packet.ReadPackedGuid128("GuildGUID");
-                packet.ReadUInt32("NumGuildMembers");
-                packet.ReadUInt32("GuildAchievementPoints");
+                packet.ReadInt32("NumGuildMembers");
+                packet.ReadInt32("GuildAchievementPoints");
             }
             if (unk801Bit)
-                packet.ReadUInt32("Unk801_UInt32");
+                packet.ReadInt32("Unk801");
         }
     }
 }

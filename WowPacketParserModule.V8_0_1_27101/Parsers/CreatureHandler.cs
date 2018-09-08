@@ -63,15 +63,15 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             creature.KillCredits = new uint?[2];
             for (int i = 0; i < 2; ++i)
-                creature.KillCredits[i] = packet.ReadUInt32("ProxyCreatureID", i);
+                creature.KillCredits[i] = (uint)packet.ReadInt32("ProxyCreatureID", i);
 
-            var displayIdCount = packet.ReadInt32("DisplayIdCount");
+            var displayIdCount = packet.ReadUInt32("DisplayIdCount");
             packet.ReadSingle("Unk801");
 
             creature.ModelIDs = new uint?[displayIdCount];
             for (int i = 0; i < displayIdCount; ++i)
             {
-                creature.ModelIDs[i] = packet.ReadUInt32("CreatureDisplayID", i);
+                creature.ModelIDs[i] = (uint)packet.ReadInt32("CreatureDisplayID", i);
                 packet.ReadSingle("Probability", i);
                 packet.ReadSingle("ProbabilityAlt", i);
             }
@@ -80,11 +80,11 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             creature.ManaModifier = packet.ReadSingle("EnergyMulti");
 
             uint questItems = packet.ReadUInt32("QuestItems");
-            creature.MovementID = packet.ReadUInt32("CreatureMovementInfoID");
-            creature.HealthScalingExpansion = packet.ReadUInt32E<ClientType>("HealthScalingExpansion");
-            creature.RequiredExpansion = packet.ReadUInt32E<ClientType>("RequiredExpansion");
-            creature.VignetteID = packet.ReadUInt32("VignetteID");
-            packet.ReadInt32("Unk801_2");
+            creature.MovementID = (uint)packet.ReadInt32("CreatureMovementInfoID");
+            creature.HealthScalingExpansion = packet.ReadInt32E<ClientType>("HealthScalingExpansion");
+            creature.RequiredExpansion = packet.ReadInt32E<ClientType>("RequiredExpansion");
+            creature.VignetteID = (uint)packet.ReadInt32("VignetteID");
+            packet.ReadInt32("Unk801");
 
             if (titleLen > 1)
                 creature.SubName = packet.ReadCString("Title");
@@ -101,7 +101,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 {
                     CreatureEntry = (uint)entry.Key,
                     Idx = i,
-                    ItemId = packet.ReadUInt32<ItemId>("QuestItem", i)
+                    ItemId = (uint)packet.ReadInt32<ItemId>("QuestItem", i)
                 };
 
                 Storage.CreatureTemplateQuestItems.Add(questItem, packet.TimeSpan);

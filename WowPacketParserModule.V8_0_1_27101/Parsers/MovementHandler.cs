@@ -13,9 +13,9 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         {
             var count = packet.ReadUInt32("MonsterSplineFilterKey", indexes);
             packet.ReadSingle("BaseSpeed", indexes);
-            packet.ReadUInt16("StartOffset", indexes);
+            packet.ReadInt16("StartOffset", indexes);
             packet.ReadSingle("DistToPrevFilterKey", indexes);
-            packet.ReadUInt16("AddedToStart", indexes);
+            packet.ReadInt16("AddedToStart", indexes);
 
             for (int i = 0; i < count; i++)
             {
@@ -38,7 +38,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
         public static void ReadMovementSpline(Packet packet, Vector3 pos, params object[] indexes)
         {
-            packet.ReadInt32E<SplineFlag>("Flags", indexes);
+            packet.ReadUInt32E<SplineFlag>("Flags", indexes);
             packet.ReadByte("AnimTier", indexes);
             packet.ReadUInt32("TierTransStartTime", indexes);
             packet.ReadInt32("Elapsed", indexes);
@@ -106,8 +106,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if (unk801) // non spell knockback/jump related
             {
                 packet.ReadSingle("Gravity");
-                packet.ReadInt32("Unk801_Int32_1");
-                packet.ReadInt32("Unk801_Int32_2");
+                packet.ReadUInt32("Unk801_UInt32_1");
+                packet.ReadUInt32("Unk801_UInt32_2");
             }
 
             // Calculate mid pos

@@ -238,7 +238,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 packet.ReadSingle("TurnRate", index);
                 packet.ReadSingle("PitchRate", index);
 
-                var movementForceCount = packet.ReadInt32("MovementForceCount", index);
+                var movementForceCount = packet.ReadUInt32("MovementForceCount", index);
 
                 packet.ResetBitReader();
 
@@ -250,7 +250,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     packet.ReadPackedGuid128("Id", index);
                     packet.ReadVector3("Origin", index);
                     packet.ReadVector3("Direction", index);
-                    packet.ReadInt32("TransportID", index);
+                    packet.ReadUInt32("TransportID", index);
                     packet.ReadSingle("Magnitude", index);
                     packet.ReadBits("Type", 2, index);
                 }
@@ -267,7 +267,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                         packet.ResetBitReader();
 
                         packet.ReadUInt32E<SplineFlag>("SplineFlags", index);
-                        packet.ReadUInt32("Elapsed", index);
+                        packet.ReadInt32("Elapsed", index);
                         packet.ReadUInt32("Duration", index);
                         packet.ReadSingle("DurationModifier", index);
                         packet.ReadSingle("NextDurationModifier", index);
@@ -312,7 +312,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                         }
 
                         if (hasSpecialTime)
-                            packet.ReadInt32("SpecialTime", index);
+                            packet.ReadUInt32("SpecialTime", index);
 
                         for (var i = 0; i < pointsCount; ++i)
                             packet.ReadVector3("Points", index, i);
@@ -323,8 +323,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                         if (unk801)
                         {
                             packet.ReadSingle("Unk801_Float_1");
-                            packet.ReadInt32("Unk801_Int32_1");
-                            packet.ReadInt32("Unk801_Int32_2");
+                            packet.ReadUInt32("Unk801_UInt32_1");
+                            packet.ReadUInt32("Unk801_UInt32_2");
                         }
                     }
                 }
@@ -349,7 +349,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             if (hasVehicleCreate)
             {
-                moveInfo.VehicleId = packet.ReadUInt32("RecID", index);
+                moveInfo.VehicleId = (uint)packet.ReadInt32("RecID", index);
                 packet.ReadSingle("InitialRawFacing", index);
             }
 
@@ -364,7 +364,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 moveInfo.Rotation = packet.ReadPackedQuaternion("GameObject Rotation", index);
 
             for (var i = 0; i < pauseTimesCount; ++i)
-                packet.ReadInt32("PauseTimes", index, i);
+                packet.ReadUInt32("PauseTimes", index, i);
 
             if (hasMovementTransport)
                 ReadTransportData(moveInfo, guid, packet, index);
@@ -382,7 +382,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 packet.ResetBitReader();
 
                 // CliAreaTrigger
-                packet.ReadInt32("ElapsedMs", index);
+                packet.ReadUInt32("ElapsedMs", index);
 
                 packet.ReadVector3("RollPitchYaw1", index);
 
@@ -452,25 +452,25 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     packet.ReadVector3("TargetRollPitchYaw", index);
 
                 if (hasScaleCurveID)
-                    spellAreaTrigger.ScaleCurveId = packet.ReadInt32("ScaleCurveID", index);
+                    spellAreaTrigger.ScaleCurveId = (int)packet.ReadUInt32("ScaleCurveID", index);
 
                 if (hasMorphCurveID)
-                    spellAreaTrigger.MorphCurveId = packet.ReadInt32("MorphCurveID", index);
+                    spellAreaTrigger.MorphCurveId = (int)packet.ReadUInt32("MorphCurveID", index);
 
                 if (hasFacingCurveID)
-                    spellAreaTrigger.FacingCurveId = packet.ReadInt32("FacingCurveID", index);
+                    spellAreaTrigger.FacingCurveId = (int)packet.ReadUInt32("FacingCurveID", index);
 
                 if (hasMoveCurveID)
-                    spellAreaTrigger.MoveCurveId = packet.ReadInt32("MoveCurveID", index);
+                    spellAreaTrigger.MoveCurveId = (int)packet.ReadUInt32("MoveCurveID", index);
 
                 if ((areaTriggerTemplate.Flags & (int)AreaTriggerFlags.Unk2) != 0)
                     packet.ReadInt32();
 
                 if ((areaTriggerTemplate.Flags & (int)AreaTriggerFlags.Unk4) != 0)
-                    packet.ReadUInt32();
+                    packet.ReadInt32();
 
                 if (hasUnk801)
-                    packet.ReadInt32("Unk801_Value", index);
+                    packet.ReadUInt32("Unk801", index);
 
                 if (areaTriggerTemplate.Type == (byte)AreaTriggerType.Sphere)
                 {
@@ -494,8 +494,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
                 if (areaTriggerTemplate.Type == (byte)AreaTriggerType.Polygon)
                 {
-                    var verticesCount = packet.ReadInt32("VerticesCount", index);
-                    var verticesTargetCount = packet.ReadInt32("VerticesTargetCount", index);
+                    var verticesCount = packet.ReadUInt32("VerticesCount", index);
+                    var verticesTargetCount = packet.ReadUInt32("VerticesTargetCount", index);
 
                     List<AreaTriggerTemplateVertices> verticesList = new List<AreaTriggerTemplateVertices>();
 
@@ -569,11 +569,11 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if (hasGameObject)
             {
                 packet.ResetBitReader();
-                packet.ReadInt32("WorldEffectID", index);
+                packet.ReadUInt32("WorldEffectID", index);
 
                 var bit8 = packet.ReadBit("bit8", index);
                 if (bit8)
-                    packet.ReadInt32("Int1", index);
+                    packet.ReadUInt32("Int1", index);
             }
 
             if (hasSmoothPhasing)
@@ -611,7 +611,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
                 if (hasSceneInstanceIDs)
                 {
-                    var sceneInstanceIDs = packet.ReadInt32("SceneInstanceIDsCount");
+                    var sceneInstanceIDs = packet.ReadUInt32("SceneInstanceIDsCount");
                     for (var i = 0; i < sceneInstanceIDs; ++i)
                         packet.ReadInt32("SceneInstanceIDs", index, i);
                 }

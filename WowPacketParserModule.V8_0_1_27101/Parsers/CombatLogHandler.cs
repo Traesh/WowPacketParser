@@ -11,13 +11,13 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
     {
         public static void ReadPeriodicAuraLogEffectData(Packet packet, params object[] idx)
         {
-            packet.ReadUInt32("Effect", idx);
-            packet.ReadUInt32("Amount", idx);
-            packet.ReadUInt32("Unk801", idx);
-            packet.ReadInt32("OverHealOrKill", idx); // normally this is uint32 in client, used int here for better readability
-            packet.ReadUInt32("SchoolMaskOrPower", idx);
-            packet.ReadUInt32("AbsorbedOrAmplitude", idx);
-            packet.ReadUInt32("Resisted", idx);
+            packet.ReadInt32("Effect", idx);
+            packet.ReadInt32("Amount", idx);
+            packet.ReadInt32("Unk801", idx);
+            packet.ReadInt32("OverHealOrKill", idx);
+            packet.ReadInt32("SchoolMaskOrPower", idx);
+            packet.ReadInt32("AbsorbedOrAmplitude", idx);
+            packet.ReadInt32("Resisted", idx);
 
             packet.ResetBitReader();
 
@@ -115,9 +115,9 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadPackedGuid128("TargetGUID");
             packet.ReadPackedGuid128("CasterGUID");
 
-            packet.ReadUInt32<SpellId>("SpellID");
+            packet.ReadInt32<SpellId>("SpellID");
 
-            var periodicAuraLogEffectCount = packet.ReadInt32("PeriodicAuraLogEffectCount");
+            var periodicAuraLogEffectCount = packet.ReadUInt32("PeriodicAuraLogEffectCount");
 
             packet.ResetBitReader();
             var hasLogData = packet.ReadBit("HasLogData");
@@ -150,17 +150,17 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadPackedGuid128("CasterGUID");
             packet.ReadPackedGuid128("CastID");
 
-            packet.ReadUInt32<SpellId>("SpellID");
-            packet.ReadUInt32("SpellXSpellVisualID");
-            packet.ReadUInt32("Damage");
-            packet.ReadUInt32("OriginalDamage");
-            packet.ReadInt32("OverKill"); // normally this is uint32 in client, used int here for better readability
+            packet.ReadInt32<SpellId>("SpellID");
+            packet.ReadInt32("SpellXSpellVisualID");
+            packet.ReadInt32("Damage");
+            packet.ReadInt32("OriginalDamage");
+            packet.ReadInt32("OverKill");
 
             packet.ReadByte("SchoolMask");
 
-            packet.ReadUInt32("Absorbed");
-            packet.ReadUInt32("Resisted");
-            packet.ReadUInt32("ShieldBlock");
+            packet.ReadInt32("Absorbed");
+            packet.ReadInt32("Resisted");
+            packet.ReadInt32("ShieldBlock");
 
             packet.ResetBitReader();
 
@@ -188,11 +188,11 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadPackedGuid128("TargetGUID");
             packet.ReadPackedGuid128("CasterGUID");
 
-            packet.ReadUInt32<SpellId>("SpellID");
-            packet.ReadUInt32("Health");
-            packet.ReadUInt32("OverHeal");
-            packet.ReadUInt32("Absorbed");
-            packet.ReadUInt32("Unk801");
+            packet.ReadInt32<SpellId>("SpellID");
+            packet.ReadInt32("Health");
+            packet.ReadInt32("OverHeal");
+            packet.ReadInt32("Absorbed");
+            packet.ReadInt32("Unk801");
 
             packet.ResetBitReader();
 
@@ -252,12 +252,12 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         {
             packet.ReadPackedGuid128("Attacker");
             packet.ReadPackedGuid128("Defender");
-            packet.ReadUInt32<SpellId>("SpellID");
-            packet.ReadUInt32("TotalDamage");
-            packet.ReadUInt32("OverKill");
-            packet.ReadUInt32("SchoolMask");
-            packet.ReadUInt32("LogAbsorbed");
-            packet.ReadUInt32("UnkUInt32");
+            packet.ReadInt32<SpellId>("SpellID");
+            packet.ReadInt32("TotalDamage");
+            packet.ReadInt32("OverKill");
+            packet.ReadInt32("SchoolMask");
+            packet.ReadInt32("LogAbsorbed");
+            packet.ReadInt32("UnkUInt32");
 
             packet.ResetBitReader();
 

@@ -19,14 +19,14 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         {
             PointsOfInterest gossipPOI = new PointsOfInterest();
 
-            gossipPOI.ID = packet.ReadUInt32("ID");
+            gossipPOI.ID = packet.ReadInt32("ID");
 
             Vector2 pos = packet.ReadVector2("Coordinates");
             gossipPOI.PositionX = pos.X;
             gossipPOI.PositionY = pos.Y;
 
-            gossipPOI.Icon = packet.ReadUInt32E<GossipPOIIcon>("Icon");
-            gossipPOI.Importance = packet.ReadUInt32("Importance");
+            gossipPOI.Icon = packet.ReadInt32E<GossipPOIIcon>("Icon");
+            gossipPOI.Importance = (uint)packet.ReadInt32("Importance");
 
             packet.ResetBitReader();
             gossipPOI.Flags = packet.ReadBits("Flags", 14);
