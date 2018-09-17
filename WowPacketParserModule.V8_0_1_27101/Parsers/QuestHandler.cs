@@ -250,7 +250,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             quest.RewardSkillLineID = (uint)packet.ReadInt32("RewardSkillLineID");
             quest.RewardNumSkillUps = (uint)packet.ReadInt32("RewardNumSkillUps");
             quest.QuestGiverPortrait = (uint)packet.ReadInt32("PortraitGiver");
-            packet.ReadInt32("Unk801"); // might be a displayid
+            quest.PortraitGiverMount = (uint)packet.ReadInt32("PortraitGiverMount");
             quest.QuestTurnInPortrait = (uint)packet.ReadInt32("PortraitTurnIn");
 
             quest.RewardFactionID = new uint?[5];
