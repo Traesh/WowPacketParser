@@ -102,8 +102,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             packet.ReadInt32("QuestPackageID");
             packet.ReadInt32("PortraitGiver");
+            packet.ReadInt32("PortraitGiverMount");
             packet.ReadInt32("PortraitTurnIn");
-            packet.ReadInt32("UnkInt32");
 
             for (int i = 0; i < 2; i++)
                 packet.ReadInt32("QuestFlags", i);
