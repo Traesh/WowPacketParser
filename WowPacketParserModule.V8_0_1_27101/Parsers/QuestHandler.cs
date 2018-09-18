@@ -542,7 +542,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             packet.ReadInt32("QuestPackageID");
             packet.ReadInt32("PortraitGiver");
-            packet.ReadInt32("Unk801");
+            packet.ReadInt32("PortraitGiverMount");
             packet.ReadInt32("PortraitTurnIn");
 
             packet.ResetBitReader();
