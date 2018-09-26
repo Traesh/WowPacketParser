@@ -1,14 +1,18 @@
-﻿using WowPacketParser.Enums;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using WowPacketParser.DBC;
+using WowPacketParser.Enums;
 using WowPacketParser.Misc;
 using WowPacketParser.Parsing;
-using WowPacketParserModule.V7_0_3_22248.Enums;
-using MovementFlag = WowPacketParserModule.V6_0_2_19033.Enums.MovementFlag;
 using SplineFlag = WowPacketParserModule.V7_0_3_22248.Enums.SplineFlag;
 
 namespace WowPacketParserModule.V8_0_1_27101.Parsers
 {
     public static class MovementHandler
     {
+        public static readonly IDictionary<ushort, bool> ActivePhases = new ConcurrentDictionary<ushort, bool>();
+
         public static void ReadMonsterSplineFilter(Packet packet, params object[] indexes)
         {
             var count = packet.ReadUInt32("MonsterSplineFilterKey", indexes);
@@ -150,6 +154,37 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             var pos = packet.ReadVector3("Position");
 
             ReadMovementMonsterSpline(packet, pos, "MovementMonsterSpline");
+        }
+
+        [Parser(Opcode.SMSG_PHASE_SHIFT_CHANGE)]
+        public static void HandlePhaseShift(Packet packet)
+        {
+            ActivePhases.Clear();
+            packet.ReadPackedGuid128("Client");
+            // PhaseShiftData
+            packet.ReadInt32("PhaseShiftFlags");
+            var count = packet.ReadInt32("PhaseShiftCount");
+            packet.ReadPackedGuid128("PersonalGUID");
+            for (var i = 0; i < count; ++i)
+            {
+                var flags = packet.ReadUInt16("PhaseFlags", i);
+                var id = packet.ReadUInt16("Id", i);
+                ActivePhases.Add(id, true);
+            }
+            if (DBC.Phases.Any())
+            {
+                foreach (var phaseGroup in DBC.GetPhaseGroups(ActivePhases.Keys))
+                    packet.WriteLine($"PhaseGroup: { phaseGroup } Phases: { string.Join(" - ", DBC.Phases[phaseGroup]) }");
+            }
+            var visibleMapIDsCount = packet.ReadInt32("VisibleMapIDsCount") / 2;
+            for (var i = 0; i < visibleMapIDsCount; ++i)
+                packet.ReadInt16<MapId>("VisibleMapID", i);
+            var preloadMapIDCount = packet.ReadInt32("PreloadMapIDsCount") / 2;
+            for (var i = 0; i < preloadMapIDCount; ++i)
+                packet.ReadInt16<MapId>("PreloadMapID", i);
+            var uiMapPhaseIdCount = packet.ReadInt32("UiMapPhaseIDsCount") / 2;
+            for (var i = 0; i < uiMapPhaseIdCount; ++i)
+                packet.ReadInt16<MapId>("UiMapPhaseId", i);
         }
     }
 }
