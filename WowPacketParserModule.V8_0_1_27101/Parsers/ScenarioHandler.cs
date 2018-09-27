@@ -13,25 +13,42 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         {
             var scenarioPOIDataCount = packet.ReadUInt32("ScenarioPOIDataCount");
             for (var i = 0; i < scenarioPOIDataCount; i++)
-            {
-                packet.ReadInt32("CriteriaTreeID");
+            {                
+                int citeriaTreeId = packet.ReadInt32("CriteriaTreeID");
 
                 var scenarioBlobDataCount = packet.ReadUInt32("ScenarioBlobDataCount");
-                for (int j = 0; j < scenarioBlobDataCount; j++)
+                for (uint j = 0; j < scenarioBlobDataCount; j++)
                 {
-                    packet.ReadInt32("BlobID", i, j);
-                    packet.ReadInt32<MapId>("MapID", i, j);
-                    packet.ReadInt32("UiMapID", i, j);
-                    packet.ReadInt32("Priority", i, j);
-                    packet.ReadInt32("Flags", i, j);
-                    packet.ReadInt32("WorldEffectID", i, j);
-                    packet.ReadInt32("PlayerConditionID", i, j);
+                    ScenarioPOI scenarioPOI = new ScenarioPOI
+                    {
+                        CriteriaTreeID = citeriaTreeId
+                    };
+
+                    scenarioPOI.BlobIndex = packet.ReadInt32("BlobID", i, j);
+                    scenarioPOI.Idx1 = j;
+                    scenarioPOI.MapID = packet.ReadInt32<MapId>("MapID", i, j);
+                    scenarioPOI.WorldMapAreaId = packet.ReadInt32("UiMapID", i, j);
+                    scenarioPOI.Priority =packet.ReadInt32("Priority", i, j);
+                    scenarioPOI.Flags = packet.ReadInt32("Flags", i, j);
+                    scenarioPOI.WorldEffectID = packet.ReadInt32("WorldEffectID", i, j);
+                    scenarioPOI.PlayerConditionID = packet.ReadInt32("PlayerConditionID", i, j);
+
+                    Storage.ScenarioPOIs.Add(scenarioPOI, packet.TimeSpan);
 
                     var scenarioPOIPointDataCount = packet.ReadUInt32("ScenarioPOIPointDataCount", i, j);
-                    for (int k = 0; k < scenarioPOIPointDataCount; k++)
+                    for (uint k = 0; k < scenarioPOIPointDataCount; k++)
                     {
-                        packet.ReadInt32("X", i, j, k);
-                        packet.ReadInt32("Y", i, j, k);
+                        ScenarioPOIPoint scenarioPOIPoint = new ScenarioPOIPoint
+                        {
+                            CriteriaTreeID = citeriaTreeId
+                        };
+
+                        scenarioPOIPoint.Idx1 = j;
+                        scenarioPOIPoint.Idx2 = k;
+                        scenarioPOIPoint.X = packet.ReadInt32("X", i, j, k);
+                        scenarioPOIPoint.Y = packet.ReadInt32("Y", i, j, k);
+
+                        Storage.ScenarioPOIPoints.Add(scenarioPOIPoint, packet.TimeSpan);
                     }
                 }
             }
