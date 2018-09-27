@@ -457,7 +457,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                         QuestObjectiveID = packet.ReadInt32("QuestObjectiveID", i, j),
                         QuestObjectID = packet.ReadInt32("QuestObjectID", i, j),
                         MapID = packet.ReadInt32("MapID", i, j),
-                        WorldMapAreaId = packet.ReadInt32("WorldMapAreaID", i, j),
+                        WorldMapAreaId = packet.ReadInt32("UiMapID", i, j),
                         // Floor was dropped
                         Priority = packet.ReadInt32("Priority", i, j),
                         Flags = packet.ReadInt32("Flags", i, j),
