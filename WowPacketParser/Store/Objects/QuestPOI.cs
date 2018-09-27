@@ -29,7 +29,8 @@ namespace WowPacketParser.Store.Objects
         [DBFieldName("MapID")]
         public int? MapID;
 
-        [DBFieldName("WorldMapAreaId")]
+        [DBFieldName("WorldMapAreaId", TargetedDatabase.Zero, TargetedDatabase.BattleForAzeroth)]
+        [DBFieldName("UiMapID", TargetedDatabase.BattleForAzeroth)]
         public int? WorldMapAreaId;
 
         [DBFieldName("Floor")]
