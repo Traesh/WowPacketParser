@@ -184,7 +184,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 packet.ReadInt16<MapId>("PreloadMapID", i);
             var uiMapPhaseIdCount = packet.ReadInt32("UiMapPhaseIDsCount") / 2;
             for (var i = 0; i < uiMapPhaseIdCount; ++i)
-                packet.ReadInt16<MapId>("UiMapPhaseId", i);
+                packet.ReadInt16("UiMapPhaseId", i);
         }
     }
 }
