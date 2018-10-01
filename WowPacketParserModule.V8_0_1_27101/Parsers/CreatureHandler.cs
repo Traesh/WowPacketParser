@@ -66,7 +66,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 creature.KillCredits[i] = (uint)packet.ReadInt32("ProxyCreatureID", i);
 
             var displayIdCount = packet.ReadUInt32("DisplayIdCount");
-            packet.ReadSingle("Unk801");
+            packet.ReadSingle("TotalProbabilityAlt"); // All ProbabilityAlt added together
 
             creature.ModelIDs = new uint?[displayIdCount];
             for (int i = 0; i < displayIdCount; ++i)
@@ -84,7 +84,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             creature.HealthScalingExpansion = packet.ReadInt32E<ClientType>("HealthScalingExpansion");
             creature.RequiredExpansion = packet.ReadInt32E<ClientType>("RequiredExpansion");
             creature.VignetteID = (uint)packet.ReadInt32("VignetteID");
-            packet.ReadInt32("Unk801");
+            creature.UnitClass = (uint)packet.ReadInt32E<Class>("UnitClass");
 
             if (titleLen > 1)
                 creature.SubName = packet.ReadCString("Title");
