@@ -10,7 +10,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
     public static class MiscellaneousHandler
     {
         [Parser(Opcode.SMSG_FEATURE_SYSTEM_STATUS)]
-        public static void HandleFeatureSystemStatus715(Packet packet)
+        public static void HandleFeatureSystemStatus(Packet packet)
         {
             packet.ReadByte("ComplaintStatus");
 
@@ -24,7 +24,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadUInt32E<ConsumableTokenRedeem>("TokenRedeemIndex");
             packet.ReadInt64("TokenBalanceAmount");
             packet.ReadUInt32("BpayStoreProductDeliveryDelay");
-            packet.ReadUInt32("UnkInt32");
+            packet.ReadUInt32("UnkUInt32_801");
 
             packet.ResetBitReader();
             packet.ReadBit("VoiceEnabled");
