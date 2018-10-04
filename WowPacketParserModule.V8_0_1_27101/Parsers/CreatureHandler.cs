@@ -69,12 +69,12 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadSingle("TotalProbability"); // All Probability added together
 
             creature.ModelIDs = new uint?[displayIdCount];
-            for (int i = 0; i < displayIdCount; ++i)
+            for (uint i = 0; i < displayIdCount; ++i)
             {
                 CreatureTemplateModel model = new CreatureTemplateModel
                 {
                     Entry = (uint)entry.Key,
-                    Idx = (uint)i
+                    Idx = i
                 };
 
                 model.CreatureDisplayID = (uint)packet.ReadInt32("CreatureDisplayID", i);
