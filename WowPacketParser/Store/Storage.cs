@@ -143,6 +143,7 @@ namespace WowPacketParser.Store
             CreatureTemplates.Clear();
             CreatureTemplateQuestItems.Clear();
             CreatureTemplateScalings.Clear();
+            CreatureTemplateModels.Clear();
 
             NpcTrainers.Clear();
             NpcVendors.Clear();
