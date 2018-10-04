@@ -16,7 +16,6 @@
         creature_equip_template,
         creature_model_info,
         creature_template,
-        creature_template_model,
         creature_template_addon,
         creature_template_locale,
         creature_template_scaling,
