@@ -273,7 +273,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         public static void HandleRemovedSpell2(Packet packet)
         {
             packet.ReadInt32<SpellId>("SpellID");
-            packet.ReadInt32("Unk");
+            packet.ReadInt32("Reason");
         }
 
         [Parser(Opcode.SMSG_ADD_LOSS_OF_CONTROL)]
