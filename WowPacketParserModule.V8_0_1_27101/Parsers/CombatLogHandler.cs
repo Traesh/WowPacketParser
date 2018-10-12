@@ -46,9 +46,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadSByte("TargetScalingLevelDelta", idx);
             packet.ReadUInt16("PlayerItemLevel", idx);
             packet.ReadUInt16("ScalingHealthItemLevelCurveID", idx);
-
-            packet.ResetBitReader();
-            packet.ReadBit("ScalesWithItemLevel", idx);
+            packet.ReadByte("ScalesWithItemLevel", idx);
         }
 
         public static void ReadAttackRoundInfo(Packet packet, params object[] indexes)
