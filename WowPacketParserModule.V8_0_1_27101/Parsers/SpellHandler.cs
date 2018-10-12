@@ -136,7 +136,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 ReadSpellCastLogData(packet, "LogData");
         }
 
-        public static void ReadSandboxScalingData(Packet packet, params object[] idx)
+        public static void ReadContentTuningData(Packet packet, params object[] idx)
         {
             packet.ResetBitReader();
 
@@ -189,10 +189,10 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     var pointsCount = packet.ReadBits("PointsCount", 6, i);
                     var effectCount = packet.ReadBits("EstimatedPoints", 6, i);
 
-                    var hasSandboxScaling = packet.ReadBit("HasSandboxScaling", i);
+                    var hasContentTuning = packet.ReadBit("HasContentTuning", i);
 
-                    if (hasSandboxScaling)
-                        ReadSandboxScalingData(packet, i, "SandboxScalingData");
+                    if (hasContentTuning)
+                        ReadContentTuningData(packet, i, "ContentTuningData");
 
                     if (hasCastUnit)
                         packet.ReadPackedGuid128("CastUnit", i);

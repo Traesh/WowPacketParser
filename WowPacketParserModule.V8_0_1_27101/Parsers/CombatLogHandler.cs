@@ -23,10 +23,10 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             packet.ReadBit("Crit", idx);
             var hasDebugData = packet.ReadBit("HasPeriodicAuraLogEffectDebugInfo", idx);
-            var hasSandboxScaling = packet.ReadBit("HasSandboxScaling", idx);
+            var hasContentTuning = packet.ReadBit("HasContentTuning", idx);
 
-            if (hasSandboxScaling)
-                SpellHandler.ReadSandboxScalingData(packet, idx, "SandboxScalingData");
+            if (hasContentTuning)
+                SpellHandler.ReadContentTuningData(packet, idx, "ContentTuninggData");
 
             if (hasDebugData)
             {
@@ -35,7 +35,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
         }
 
-        public static void ReadSandboxScalingData(Packet packet, params object[] idx)
+        public static void ReadCombatLogContentTuningData(Packet packet, params object[] idx)
         {
             packet.ReadByte("Type", idx);
             packet.ReadByte("TargetLevel", idx);
@@ -45,10 +45,10 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadInt16("PlayerLevelDelta", idx);
             packet.ReadSByte("TargetScalingLevelDelta", idx);
             packet.ReadUInt16("PlayerItemLevel", idx);
-            packet.ReadUInt16("Flags", idx);
+            packet.ReadUInt16("ScalingHealthItemLevelCurveID", idx);
 
             packet.ResetBitReader();
-            packet.ReadBit("UnkBit", idx);
+            packet.ReadBit("ScalesWithItemLevel", idx);
         }
 
         public static void ReadAttackRoundInfo(Packet packet, params object[] indexes)
@@ -106,7 +106,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if (hitInfo.HasAnyFlag(SpellHitInfo.HITINFO_BLOCK | SpellHitInfo.HITINFO_UNK12))
                 packet.ReadSingle("Unk Float", indexes);
 
-            ReadSandboxScalingData(packet, indexes, "SandboxScalingData");
+            ReadCombatLogContentTuningData(packet, indexes, "ContentTuningData");
         }
 
         [Parser(Opcode.SMSG_SPELL_PERIODIC_AURA_LOG)]
@@ -170,7 +170,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             var hasDebugData = packet.ReadBit("HasDebugData");
             var hasLogData = packet.ReadBit("HasLogData");
-            var hasSandboxScaling = packet.ReadBit("HasSandboxScaling");
+            var hasContentTuning = packet.ReadBit("HasContentTuning");
 
             if (hasLogData)
                 SpellHandler.ReadSpellCastLogData(packet, "SpellCastLogData");
@@ -178,8 +178,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if (hasDebugData)
                 ReadSpellNonMeleeDebugData(packet, "DebugData");
 
-            if (hasSandboxScaling)
-                SpellHandler.ReadSandboxScalingData(packet, "SandboxScalingData");
+            if (hasContentTuning)
+                SpellHandler.ReadContentTuningData(packet, "ContentTuningData");
         }
 
         [Parser(Opcode.SMSG_SPELL_HEAL_LOG)]
@@ -200,7 +200,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             var hasCritRollMade = packet.ReadBit("HasCritRollMade");
             var hasCritRollNeeded = packet.ReadBit("HasCritRollNeeded");
             var hasLogData = packet.ReadBit("HasLogData");
-            var hasSandboxScaling = packet.ReadBit("HasSandboxScaling");
+            var hasContentTuning = packet.ReadBit("HasContentTuning");
 
             if (hasLogData)
                 SpellHandler.ReadSpellCastLogData(packet);
@@ -211,8 +211,8 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if (hasCritRollNeeded)
                 packet.ReadSingle("CritRollNeeded");
 
-            if (hasSandboxScaling)
-                SpellHandler.ReadSandboxScalingData(packet, "SandboxScalingData");
+            if (hasContentTuning)
+                SpellHandler.ReadContentTuningData(packet, "ContentTuningData");
         }
 
         [Parser(Opcode.SMSG_SPELL_ABSORB_LOG)]
