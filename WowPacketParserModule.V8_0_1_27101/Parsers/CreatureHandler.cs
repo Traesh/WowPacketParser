@@ -66,14 +66,14 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 creature.KillCredits[i] = (uint)packet.ReadInt32("ProxyCreatureID", i);
 
             var displayIdCount = packet.ReadUInt32("DisplayIdCount");
-            packet.ReadSingle("TotalProbabilityAlt"); // All ProbabilityAlt added together
+            packet.ReadSingle("CreatureDisplayProbabilitySum");
 
             creature.ModelIDs = new uint?[displayIdCount];
             for (int i = 0; i < displayIdCount; ++i)
             {
                 creature.ModelIDs[i] = (uint)packet.ReadInt32("CreatureDisplayID", i);
+                packet.ReadSingle("DisplayScale", i);
                 packet.ReadSingle("Probability", i);
-                packet.ReadSingle("ProbabilityAlt", i);
             }
 
             creature.HealthModifier = packet.ReadSingle("HpMulti");

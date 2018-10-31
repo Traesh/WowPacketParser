@@ -1,4 +1,4 @@
-﻿using WowPacketParser.Enums;
+using WowPacketParser.Enums;
 using WowPacketParser.Misc;
 using WowPacketParser.Parsing;
 using WowPacketParser.Store;
@@ -29,9 +29,9 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             {
                 packet.ResetBitReader();
                 var playerNameLength = packet.ReadBits(6);
-                var bnetIdBits = packet.ReadBits(4); // either 4 or 0
+                var voiceStateLength = packet.ReadBits(6);
                 packet.ReadBit("FromSocialQueue", i);
-                packet.ReadBit("Unk801_Bit", i);
+                packet.ReadBit("VoiceChatSilenced", i);
 
                 packet.ReadPackedGuid128("Guid", i);
 
@@ -42,7 +42,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 packet.ReadByteE<Class>("Class", i);
 
                 packet.ReadWoWString("Name", playerNameLength, i);
-                if (bnetIdBits > 0) // according to implementation of CDataStore::GetCString in 8.0.1
+                if (voiceStateLength > 0) // according to implementation of CDataStore::GetCString in 8.0.1
                     packet.ReadCString("BNetIdString", i);
             }
 

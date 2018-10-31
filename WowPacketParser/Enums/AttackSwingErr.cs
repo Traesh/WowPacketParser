@@ -7,4 +7,12 @@
         BadFacing = 2,
         DeadTarget = 3
     }
+
+    public enum AttackSwingErr801
+    {
+        NotInRange = 0,
+        BadFacing  = 1,
+        CantAttack = 2,
+        DeadTarget = 3
+    }
 }

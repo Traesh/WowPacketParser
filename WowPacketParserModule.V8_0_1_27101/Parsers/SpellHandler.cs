@@ -142,13 +142,14 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             packet.ReadInt16("PlayerLevelDelta", idx);
             packet.ReadUInt16("PlayerItemLevel", idx);
-            packet.ReadUInt16("HealthItemLevelCurveId", idx);
+            packet.ReadUInt16("ScalingHealthItemLevelCurveID", idx);
             packet.ReadByte("TargetLevel", idx);
             packet.ReadByte("Expansion", idx);
             packet.ReadByte("TargetMinScalingLevel", idx);
             packet.ReadByte("TargetMaxScalingLevel", idx);
             packet.ReadSByte("TargetScalingLevelDelta", idx);
-            packet.ReadByte("Flags", idx);
+            packet.ReadBits("Type", 4, idx);
+            packet.ReadBit("ScalesWithItemLevel", idx);
         }
 
         [HasSniffData]
