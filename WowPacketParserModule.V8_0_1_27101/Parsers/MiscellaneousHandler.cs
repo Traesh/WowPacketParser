@@ -61,6 +61,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             packet.ReadBit("ClubsBattleNetClubTypeAllowed");
             packet.ReadBit("ClubsCharacterClubTypeAllowed");
             packet.ReadBit("VoiceChatDisabledByParentalControl");
+            packet.ReadBit("VoiceChatMutedByParentalControl");
 
             {
                 packet.ResetBitReader();
