@@ -199,6 +199,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 packet.ReadInt32("NumGuildMembers");
                 packet.ReadInt32("GuildAchievementPoints");
             }
+
             if (hasAzeriteLevel)
                 packet.ReadInt32("AzeriteLevel");
         }

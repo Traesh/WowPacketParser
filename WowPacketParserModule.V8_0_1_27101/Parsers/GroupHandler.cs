@@ -32,7 +32,6 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 var voiceStateLength = packet.ReadBits(6);
                 packet.ReadBit("FromSocialQueue", i);
                 packet.ReadBit("VoiceChatSilenced", i);
-
                 packet.ReadPackedGuid128("Guid", i);
 
                 packet.ReadByte("Status", i);
