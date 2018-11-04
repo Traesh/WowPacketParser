@@ -136,19 +136,20 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 ReadSpellCastLogData(packet, "LogData");
         }
 
-        public static void ReadSandboxScalingData(Packet packet, params object[] idx)
+        public static void ReadContentTuningData(Packet packet, params object[] idx)
         {
             packet.ResetBitReader();
 
             packet.ReadInt16("PlayerLevelDelta", idx);
             packet.ReadUInt16("PlayerItemLevel", idx);
-            packet.ReadUInt16("HealthItemLevelCurveId", idx);
+            packet.ReadUInt16("ScalingHealthItemLevelCurveID", idx);
             packet.ReadByte("TargetLevel", idx);
             packet.ReadByte("Expansion", idx);
             packet.ReadByte("TargetMinScalingLevel", idx);
             packet.ReadByte("TargetMaxScalingLevel", idx);
             packet.ReadSByte("TargetScalingLevelDelta", idx);
-            packet.ReadByte("Flags", idx);
+            packet.ReadBits("Type", 4, idx);
+            packet.ReadBit("ScalesWithItemLevel", idx);
         }
 
         [HasSniffData]
@@ -189,10 +190,10 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     var pointsCount = packet.ReadBits("PointsCount", 6, i);
                     var effectCount = packet.ReadBits("EstimatedPoints", 6, i);
 
-                    var hasSandboxScaling = packet.ReadBit("HasSandboxScaling", i);
+                    var hasContentTuning = packet.ReadBit("HasContentTuning", i);
 
-                    if (hasSandboxScaling)
-                        ReadSandboxScalingData(packet, i, "SandboxScalingData");
+                    if (hasContentTuning)
+                        ReadContentTuningData(packet, i, "ContentTuningData");
 
                     if (hasCastUnit)
                         packet.ReadPackedGuid128("CastUnit", i);
@@ -273,7 +274,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         public static void HandleRemovedSpell2(Packet packet)
         {
             packet.ReadInt32<SpellId>("SpellID");
-            packet.ReadInt32("Unk");
+            packet.ReadInt32("Reason");
         }
 
         [Parser(Opcode.SMSG_ADD_LOSS_OF_CONTROL)]

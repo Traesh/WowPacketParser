@@ -33,7 +33,7 @@ namespace WowPacketParser.Store.Objects
         [DBFieldName("UiMapID", TargetedDatabase.BattleForAzeroth)]
         public int? WorldMapAreaId;
 
-        [DBFieldName("Floor")]
+        [DBFieldName("Floor", TargetedDatabase.Zero, TargetedDatabase.BattleForAzeroth)]
         public int? Floor;
 
         [DBFieldName("Priority")]
@@ -48,8 +48,8 @@ namespace WowPacketParser.Store.Objects
         [DBFieldName("PlayerConditionID", TargetedDatabase.WarlordsOfDraenor)]
         public int? PlayerConditionID;
 
-        [DBFieldName("WoDUnk1", TargetedDatabase.WarlordsOfDraenor)]
-        public int? WoDUnk1;
+        [DBFieldName("SpawnTrackingID", TargetedDatabase.WarlordsOfDraenor)]
+        public int? SpawnTrackingID;
 
         [DBFieldName("AlwaysAllowMergingBlobs", TargetedDatabase.Legion)]
         public bool AlwaysAllowMergingBlobs;

@@ -66,7 +66,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 creature.KillCredits[i] = (uint)packet.ReadInt32("ProxyCreatureID", i);
 
             var displayIdCount = packet.ReadUInt32("DisplayIdCount");
-            packet.ReadSingle("TotalProbability"); // All Probability added together
+            packet.ReadSingle("CreatureDisplayProbabilitySum");
 
             creature.ModelIDs = new uint?[displayIdCount];
             for (uint i = 0; i < displayIdCount; ++i)
