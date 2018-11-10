@@ -183,6 +183,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             var sceneObjCreate = packet.ReadBit("SceneObjCreate", index);
             var playerCreateData = packet.ReadBit("HasPlayerCreateData", index);
+            var staticConversation = packet.ReadBit("HasStaticConversation", index);
 
             if (hasMovementUpdate)
             {
@@ -624,6 +625,14 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     for (var i = 0; i < runeCount; ++i)
                         packet.ReadByte("RuneCooldown", index, i);
                 }
+            }
+
+            if (staticConversation)
+            {
+                packet.ResetBitReader();
+                var HasTextureKitId = packet.ReadBit("HasTextureKitId", index);
+                if (HasTextureKitId)
+                    packet.ReadUInt32("TextureKitId", index);
             }
 
             return moveInfo;
