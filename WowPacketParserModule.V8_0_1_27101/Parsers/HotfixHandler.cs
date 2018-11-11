@@ -43,6 +43,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                                 Text1 = db2File.ReadCString("Text1"),
                             };
 
+                            db2File.ReadUInt32("ID");
                             bct.LanguageID = db2File.ReadByte("LanguageID");
                             bct.ConditionID = db2File.ReadUInt32("ConditionID");
                             bct.EmotesID = db2File.ReadUInt16("EmotesID");
